@@ -3,21 +3,36 @@ import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { StyleSheet, ImageBackground, SafeAreaView } from 'react-native';
 import Colors from './constants/colors';
+import GameOverScreen from './screens/GameOverScreen';
 import GameScreen from './screens/GameScreen';
 import GameStartScreen from './screens/GameStartScreen';
 
 export default function App() {
   const [userNumber, setUserNumber] = useState();
+  const [gameIsOver, setGameIsOver] = useState(true);
 
   const userNumberHandler = (num) => {
     setUserNumber(num)
+    setGameIsOver(false)
+  }
+
+  const gameOverHandler = () => {
+    setGameIsOver(true)
+    console.log('Game Over Handler Called');
   }
 
   let Screen = <GameStartScreen onPickNumber={userNumberHandler} />
 
   if (userNumber) {
-    Screen = <GameScreen userNumber={userNumber} />
+    Screen = <GameScreen userNumber={userNumber} onGameOver={gameOverHandler} />
   }
+
+  if (gameIsOver && userNumber) {
+    Screen = <GameOverScreen />
+  }
+
+  console.log("gameIsOver:", gameIsOver);
+  console.log("userNumber:", userNumber);
 
 
   return (
