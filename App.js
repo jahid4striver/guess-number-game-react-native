@@ -13,19 +13,20 @@ import AppLoading from 'expo-app-loading';
 export default function App() {
   const [userNumber, setUserNumber] = useState();
   const [gameIsOver, setGameIsOver] = useState(true);
-  const [roundsNumber,setRoundsNumber]=useState(0)
+  const [roundsNumber, setRoundsNumber] = useState(0)
 
   const userNumberHandler = (num) => {
     setUserNumber(num)
     setGameIsOver(false)
   }
 
-  const gameOverHandler = () => {
+  const gameOverHandler = (guessOfRounds) => {
     setGameIsOver(true)
+    setRoundsNumber(guessOfRounds.length)
     console.log('Game Over Handler Called');
   }
 
-  const startNewGameHanlder=()=>{
+  const startNewGameHanlder = () => {
     setUserNumber(null)
     setRoundsNumber(0)
   }
